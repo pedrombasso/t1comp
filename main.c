@@ -7,7 +7,8 @@ extern int yylex();
 extern FILE *yyin;
 #include "tokens.h"
 #include "hash.h"
-//#include "lex.yy.h"
+#include "lex.yy.h"
+
 int main(int argc, char **argv)
 {	
 	if (argc < 2)
