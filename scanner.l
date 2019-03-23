@@ -8,12 +8,6 @@ int running = 1;
 
 %}
 
-INTEGER [OIHGFEDCBA]+
-IDENTIFIER ([a-z0-9]|_)+
-STRING \"(\\.|[^\\"])*\"
-OPERATOR ","|";"|":"|"("|")"|"["|"]"|"{"|"}"|"+"|"-"|"*"|"/"|"<"|">"|"="|"&"|"$"|"#"
-LINE_COMMENT "ZZ".*
-BLOCK_COMMENT "XXX"
 
 %x BLOCK_COMMENT 
 
@@ -42,14 +36,14 @@ BLOCK_COMMENT "XXX"
 [,;!@:()+-/}{*/<>=&$#]					{ return yytext[0]; }
 "["					{ return yytext[0]; }
 "]"					{ return yytext[0]; }
-{IDENTIFIER}			{ hashInsert(0, yytext); return TK_IDENTIFIER; }
-{INTEGER}			{ hashInsert(0, yytext); return LIT_INTEGER; }
-{INTEGER}"."{INTEGER}		{ hashInsert(0, yytext); return LIT_FLOAT; }		
+([a-z0-9]|_)+			{ hashInsert(0, yytext); return TK_IDENTIFIER; }
+[OIHGFEDCBA]+			{ hashInsert(0, yytext); return LIT_INTEGER; }
+[OIHGFEDCBA]+"."[OIHGFEDCBA]+		{ hashInsert(0, yytext); return LIT_FLOAT; }		
 ['].[']				{ hashInsert(0, yytext); return LIT_CHAR; }
-{STRING}			{ hashInsert(0, yytext); return LIT_STRING; }
-{LINE_COMMENT}				
-{BLOCK_COMMENT}			{ BEGIN(BLOCK_COMMENT); }
-<BLOCK_COMMENT>{BLOCK_COMMENT}	{ BEGIN(INITIAL); }
+\"(\\.|[^\\"])*\"			{ hashInsert(0, yytext); return LIT_STRING; }
+"ZZ".*				
+"XXX"			{ BEGIN(BLOCK_COMMENT); }
+<BLOCK_COMMENT>"XXX"	{ BEGIN(INITIAL); }
 <BLOCK_COMMENT>.
 <BLOCK_COMMENT>"\n"		{ lineNumber++; }
 .				{ return TOKEN_ERROR; }
@@ -76,6 +70,5 @@ void initMe(void)
 {
 	hashInit();
 }
-
 
 
