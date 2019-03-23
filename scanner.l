@@ -1,37 +1,81 @@
+
 %{
-	#include "tokens.h"
-	#include "hash.c"
-	
-	int Running = 1;
-	int LineNumber = 1;
+#include "tokens.h"
+#include "hash.h"
+
+int lineNumber = 1;
+int running = 1; 
+
 %}
 
-%x COMMENT
+INTEGER [OIHGFEDCBA]+
+IDENTIFIER ([a-z0-9]|_)+
+STRING \"(\\.|[^\\"])*\"
+OPERATOR ","|";"|":"|"("|")"|"["|"]"|"{"|"}"|"+"|"-"|"*"|"/"|"<"|">"|"="|"&"|"$"|"#"
+LINE_COMMENT "ZZ".*
+BLOCK_COMMENT "XXX"
+
+%x BLOCK_COMMENT 
 
 %%
-
-"if"			{return KW_IF;}
-"int"			{return KW_INT;}
-[0-9]+			{hashInsert(0 , yytext); return LIT_INTEGER;}
-[A-Za-z]+		{hashInsert(0 , yytext); return TK_IDENTIFIER;}
-[-+*/();.<>=]	{return yytext[0];}
-"]"				{return yytext[0];}
-"["				{return yytext[0];}
-"\n"				{++LineNumber;}
-[\t]		
-"//".*		
-"/*"			{BEGIN(COMMENT);}
-
-
-<COMMENT>"*/"	{BEGIN(INITIAL);}
-<COMMENT>.
-<COMMENT>"\n"	{++LineNumber;}
+"byte"				{ return KW_BYTE; }
+"int"				{ return KW_INT; }
+"float"				{ return KW_FLOAT; }
+"if"				{ return KW_IF; }
+"then"				{ return KW_THEN; }
+"else"				{ return KW_ELSE; }
+"loop"				{ return KW_LOOP; }
+"leap"				{ return KW_LEAP; }
+"or"				{ return OPERATOR_OR; }
+"and"				{ return OPERATOR_AND; }
+"not"				{ return OPERATOR_NOT; }
+"read"				{ return KW_READ; }
+"print"				{ return KW_PRINT; }
+"return"			{ return KW_RETURN; }
+"<="				{ return OPERATOR_LE; }
+">="				{ return OPERATOR_GE; }
+"=="				{ return OPERATOR_EQ; }
+"!="				{ return OPERATOR_DIF; }
+" "
+"\t"
+"\n"				{ lineNumber++; }
+[,;!@:()+-/}{*/<>=&$#]					{ return yytext[0]; }
+"["					{ return yytext[0]; }
+"]"					{ return yytext[0]; }
+{IDENTIFIER}			{ hashInsert(0, yytext); return TK_IDENTIFIER; }
+{INTEGER}			{ hashInsert(0, yytext); return LIT_INTEGER; }
+{INTEGER}"."{INTEGER}		{ hashInsert(0, yytext); return LIT_FLOAT; }		
+['].[']				{ hashInsert(0, yytext); return LIT_CHAR; }
+{STRING}			{ hashInsert(0, yytext); return LIT_STRING; }
+{LINE_COMMENT}				
+{BLOCK_COMMENT}			{ BEGIN(BLOCK_COMMENT); }
+<BLOCK_COMMENT>{BLOCK_COMMENT}	{ BEGIN(INITIAL); }
+<BLOCK_COMMENT>.
+<BLOCK_COMMENT>"\n"		{ lineNumber++; }
+.				{ return TOKEN_ERROR; }
 
 %%
-
 
 int yywrap()
 {
-	Running = 0;
+	running = 0;
 	return 1;
 }
+
+int getLineNumber(void)
+{
+	return lineNumber;
+}
+
+int isRunning(void)
+{
+	return running;
+}
+
+void initMe(void)
+{
+	hashInit();
+}
+
+
+
