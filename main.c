@@ -59,7 +59,7 @@ int main (int argc, char **argv)
 			case LIT_FLOAT: fprintf(stdout, "LIT_FLOAT \n"); break;
 			case LIT_CHAR: fprintf(stdout, "LIT_CHAR \n"); break;
 			case LIT_STRING: fprintf(stdout, "LIT_STRING \n"); break;
-			default: fprintf(stdout, "UNKNOWN: %d \n", tok); break;
+			default: fprintf(stdout, "DEFAULT: %d \n", tok); break;
 		}
 	}
 hashPrint();
