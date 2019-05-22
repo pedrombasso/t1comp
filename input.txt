@@ -1,19 +1,32 @@
-fhgfghfhg 235 77 8 
-34
-6
-6
-7
-4
-:
-+
-!
-&
-*
-(
-)
-A 
-B
-C
-D
-S
-AAAAAA
+byte
+int AAA
+float
+floatasa
+if then
+ifthen
+else
+loop
+leap
+read
+readleap
+leapread
+return
+return 0
+return0
+print
+print("teste");
+<=
+!=
+or and not
+orandnot
+blablabla
+AAA
+AAAe
+aaa
+ABC
+A.A
+ABC.ABC
+'a'
+'A'
+"string"
+
