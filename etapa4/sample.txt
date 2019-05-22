@@ -1,0 +1,51 @@
+byte 9oaaasd = OA;
+byte asd [OA];
+byte asd (int tt, byte sss){
+	asd[O] = A;
+	asd = AO * OA;
+	fs = (AO * (OA * OA.AO))*'c';
+	23asd[A] = AO - OA;
+	asffd[A] = AO + OA;
+	asd[A] = AO / OA;
+	asfsd[A] = AO - OA;
+	asasdd[A] = AO - OA > O;
+	rrtt[A] = 'c';
+
+	if ('c') then asd[A] = 'c';
+	if ('c') then asd[A] = 'c' else asd[A] = 'c';
+
+	leap;
+	loop ('c'){
+		asd[A] = 'c';
+	};
+	return 'c' != 'd'
+};
+
+byte a = OA;
+byte 9b = OAOA.OA;
+byte c = OAOAOAOA;
+byte d = OAOAOA;
+byte e = OA.OA;
+byte f = OA;
+byte g = 'O';
+byte h = OAOAOAOAO.AOAOAOA;
+
+byte main ()
+  {
+  print "Teste de expressoes: \n";
+  a = (c+d*f)-(c+c*h);
+  b = a and b or (c or d) not a;
+  c = incn((c+d*f),h) + 4 or incn(e,h) ;
+  d = (c+d*f)-(c+c*h);
+  e = a and b or (d or c) not a;
+  c = incn(e,h) + 6 or incn(a,c) ;
+
+  print "Teste de expressoes: \n";
+
+};
+
+byte incn ( byte x, byte n )
+  {
+  return x+n
+  };
+
