@@ -5,19 +5,24 @@
 #define MAX_SONS 4
 #define T_TOKEN_ERROR "ERRO"
 
+typedef int TREE_TYPE;
 
 #define SYMBOL 			0
 #define PROGRAMA 		1
+
 #define AST_DEC			2 
 #define AST_DEC_FUNCAO 	3
 #define AST_DEC_VAR 	4
-#define AST_DEC_SIMPLES 5
-#define	AST_LIST_DEC 	6
-#define AST_TIPO_INT 	7
-#define AST_TIPO_FLOAT 8
-#define AST_TIPO_BYTE 9
-#define AST_DEC_VETOR_SIMPLES 10
-#define AST_DEC_VETOR_COMPLETO 11
+#define AST_DEC_SIMPLES 5 
+#define AST_DEC_VETOR_SIMPLES 6 
+#define AST_DEC_VETOR_COMPLETO 7 
+
+#define AST_TIPO_INT 	8
+#define AST_TIPO_FLOAT 9
+#define AST_TIPO_BYTE 10
+
+
+#define	AST_LIST_DEC 	11
 #define AST_LISTA_PARAMETRO 12
 #define AST_FUNCAO 13
 #define AST_BLOCO 14
@@ -59,8 +64,9 @@
 #define AST_LISTA_DEC 50
 
 typedef struct ast_node{
-	int type;
+	
 	struct ast_node *son[MAX_SONS];
+	TREE_TYPE type;
 	HASH_NODE* symbol;
 } AST;
 

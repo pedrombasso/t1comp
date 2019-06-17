@@ -1,0 +1,6 @@
+int asdd[O];
+int asd(int tt, byte sss){
+	asdd[O] = A;
+
+	return asdd[O] + asdd[O]
+};

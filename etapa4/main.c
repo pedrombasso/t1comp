@@ -3,6 +3,7 @@
 #include "hash.h"
 #include "ast.h"
 #include "y.tab.h"
+#include "semantics.h"
 
 
 
@@ -22,11 +23,35 @@ int main(int argc, char* argv[]){
 			printf("Sucess, this is a program!\nLines: %d\n", getLineNumber());
 			hashPrint();
 			astPrint(ast_programa,0);
-			decompile(ast_programa, outfile);
-            exit(0);
+			
+			printf("$$$$$$$$$$$$$$$$$ SEMANTICS $$$$$$$$$$$$$$$$$$");
+            semanticsCheckVariables(ast_programa);
+            
+         	semanticsCheckType(ast_programa);
+
+            if(semanticFailure)
+            {
+                printf("Compilation failed due to semantic errors.\n");
+                exit(4);
+            }
+            else
+            	printf("No semantic errors.\n");
+
+            // decompile(ast_programa, outfile);
+
+           
 			
 		}
+		else{
+			printf("File does not exist!\n");
+             exit(2);
+        }
+	}
+	else {
+        printf("File not informed!\nUsage: ./etapa4 input_filepath\n");
+        exit(1);       	
     }
     
-	exit(3);
+	
+ exit(0);	
 }

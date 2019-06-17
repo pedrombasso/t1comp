@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "hash.h"
 #include "ast.h"
+#include "semantics.h"
 
 extern int yylex();
 extern int yyerror(char *s);

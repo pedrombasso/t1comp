@@ -35,6 +35,12 @@ HASH_NODE* hashInsert(int type, char *text)
 
 	newNode = (HASH_NODE*)calloc(1, sizeof(HASH_NODE));
 	newNode->type = type;
+
+	newNode->dataType.identifierType = -1;
+	newNode->dataType.valueType = -1;
+	newNode->dataType.params = NULL;
+
+
 	newNode->text = calloc(strlen(yytext) + 1, sizeof(char));
 	strcpy(newNode->text, text);
 	newNode->next = Table[address];
@@ -64,3 +70,24 @@ void hashPrint(void)
 			fprintf(stderr, "Table[%d] has %s\n", i, node->text);
 	}
 }
+
+int hashUpdateType(char * text, ID_TYPE idType, VAL_TYPE valType, PARAM_LIST *params, int length)
+{
+    int i;
+    HASH_NODE *node;
+    for(i=0; i<HASH_SIZE; i++)
+      for(node = Table[i]; node; node=node->next)
+        if(!strcmp(node->text,text))
+    			if(node->dataType.identifierType == -1)
+    			{
+    				node->dataType.identifierType = idType;
+    				node->dataType.valueType = valType;
+            		node->dataType.params = params;
+            		node->dataType.paramsLength = length;
+    				return 1;
+    			}
+    			else
+    				return 0;
+    return 0;
+}
+

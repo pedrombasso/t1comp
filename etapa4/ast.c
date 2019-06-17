@@ -37,7 +37,9 @@ void astPrint(AST* node, int level) {
 		fprintf(stderr, "  ");
     }
 
+  fprintf(stderr, "%d: ", node->type);
 	switch(node->type) {
+
     case AST_LISTA_DEC :
       fprintf(stderr, "AST_LISTA_DEC \n");
       break;
